@@ -28,7 +28,7 @@ zalo = "0585019743"
 web = "https://dichvukey.site/"
 facebook = "no"
 bot=telebot.TeleBot("BOT_TOKEN") 
-app = Flask(__name__
+app = Flask(__name__)
             
 def webhook():
     json_update = request.get_data().decode('utf-8')
