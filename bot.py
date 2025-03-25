@@ -399,7 +399,6 @@ def name_handler(message):
     else:
         reply_text = "<blockquote>❌ Không tìm thấy tài khoản!</blockquote>"
 
-bot.reply_to(message, reply_text, parse_mode="HTML")
 
 if __name__ == "__main__":
     bot_active = True
