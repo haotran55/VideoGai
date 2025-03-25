@@ -27,7 +27,7 @@ name_bot = "HaoEsports"
 zalo = "0585019743"
 web = "https://dichvukey.site/"
 facebook = "no"
-bot=telebot.TeleBot("7920158658:AAGyY9jA2B5Z3_n3vZzzQBDYaJoAddPqZ7s") 
+bot=telebot.TeleBot("BOT_TOKEN") 
 app = Flask(__name__)
 
 @app.route('/' + TOKEN, methods=['POST'])
