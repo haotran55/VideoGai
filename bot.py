@@ -25,7 +25,7 @@ name_bot = "HaoEsports"
 zalo = "0585019743"
 web = "https://dichvukey.site/"
 facebook = "no"
-bot=telebot.TeleBot("8127007530:AAG1b4w__xXvIrAr7woZjN8BrC_l3g1hBwI") 
+bot=telebot.TeleBot("7920158658:AAGyY9jA2B5Z3_n3vZzzQBDYaJoAddPqZ7s") 
 #real 
 #phu 8127007530:AAG1b4w__xXvIrAr7woZjN8BrC_l3g1hBwI
 print("Bot đã được khởi động thành công")
@@ -38,7 +38,7 @@ last_sms_time = {}
 global_lock = Lock()
 allowed_users = []
 processes = []
-ADMIN_ID =  7713922358 #nhớ thay id nhé nếu k thay k duyệt dc vip đâu v.L..ong.a
+ADMIN_ID =  7845889525 #nhớ thay id nhé nếu k thay k duyệt dc vip đâu v.L..ong.a
 connection = sqlite3.connect('user_data.db')
 cursor = connection.cursor()
 last_command_time = {}
@@ -101,7 +101,7 @@ start_time = time.time()
 
 def fetch_data(user_id):
     try:
-        url = f'https://freefire-virusteam.vercel.app/info?uid={user_id}'
+        url = f'https://api.ffcommunity.site/info.php?uid={user_id}'
         response = requests.get(url, timeout=10)
         response.raise_for_status()
         return response.json()
@@ -130,7 +130,7 @@ def handle_command(message):
         basic_info = data
         clan_info = data.get('Guild Information', {})
         leader_info = data.get('Guild Leader Information', {})
-        avatar_url = basic_info.get('Account Avatar Image', 'Không có')
+        avatar_url = basic_info.get('AccountAvatarId', 'Không có')
 
         def get_value(key, data_dict):
             return data_dict.get(key, "Không có thông tin")
@@ -139,23 +139,23 @@ def handle_command(message):
 <blockquote>
 <b>Thông tin cơ bản:</b>
 Avatar: <a href="{avatar_url}">Nhấn để xem</a>
-Nickname: {get_value('Account Name', basic_info)}
-Cấp độ: {get_value('Account Level', basic_info)}
-Khu vực: {get_value('Account Region', basic_info)}
-Xếp hạng Sinh Tồn: {get_value('BR Rank Points', basic_info)}
-Tổng Sao Tử Chiến: {get_value('CS Rank Points', basic_info)}
-Số lượt thích: {get_value('Account Likes', basic_info)}
-Lần đăng nhập gần nhất: {get_value('Account Last Login (GMT 0530)', basic_info)}
-Ngôn ngữ: {get_value('Account Language', basic_info)}
-Tiểu sử game: {get_value('Account Signature', basic_info)}
+Nickname: {get_value('AccountName', basic_info)}
+Cấp độ: {get_value('AccountLevel', basic_info)}
+Khu vực: {get_value('AccountRegion', basic_info)}
+Xếp hạng Sinh Tồn: {get_value('BrRank', basic_info)}
+Tổng Sao Tử Chiến: {get_value('CsRank', basic_info)}
+Số lượt thích: {get_value('AccountLikes', basic_info)}
+Lần đăng nhập gần nhất: {get_value('AccountLastLogin (GMT 0530)', basic_info)}
+Ngôn ngữ: {get_value('AccountLanguage', basic_info)}
+Tiểu sử game: {get_value('AccountSignature', basic_info)}
 
 <b>Thông tin quân đoàn:</b>
-Tên quân đoàn: {get_value('Guild Name', clan_info)}
-Cấp độ quân đoàn: {get_value('Guild Level', clan_info)}
-Sức chứa: {get_value('Guild Capacity', clan_info)}
-Số thành viên hiện tại: {get_value('Guild Current Members', clan_info)}
-Chủ quân đoàn: {get_value('Leader Name', leader_info)}
-Cấp độ chủ quân đoàn: {get_value('Leader Level', leader_info)}
+Tên quân đoàn: {get_value('GuildName', clan_info)}
+Cấp độ quân đoàn: {get_value('GuildLevel', clan_info)}
+Sức chứa: {get_value('GuildCapacity', clan_info)}
+Số thành viên hiện tại: {get_value('GuildMember', clan_info)}
+Chủ quân đoàn: {get_value('LeaderName', leader_info)}
+Cấp độ chủ quân đoàn: {get_value('LeaderLevel', leader_info)}
 </blockquote>
 """
 
@@ -178,7 +178,7 @@ def send_help(message):
 | /like : buff like
 | /getkey : lấy key 
 | /key : nhập key
-| /name : tên acc ff
+| /vist : 
 |—————————————————
                      Lệnh Admin
 |____________________________
@@ -247,7 +247,7 @@ def like_handler(message):
             bot.reply_to(message, "<blockquote>ID không hợp lệ. Vui lòng nhập ID số.</blockquote>", parse_mode="HTML")
             return
 
-        url = f"{API_BASE_URL}/likes1"
+        url = f"https://like-free-glff.onrender.com/?uid={uid}"
         response = requests.get(url, params={"key": VIP_KEY, "uid": uid}, timeout=10)
         data = response.json()
 
