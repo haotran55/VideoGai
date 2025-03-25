@@ -27,12 +27,12 @@ name_bot = "HaoEsports"
 zalo = "0585019743"
 web = "https://dichvukey.site/"
 facebook = "no"
-TOKEN = os.getenv("BOT_TOKEN")  # Lấy token từ biến môi trường
+TOKEN = os.getenv("BOT_TOKEN", "").strip()  # Xoá khoảng trắng thừa
 
 if not TOKEN or ":" not in TOKEN:
     raise ValueError("⚠️ BOT_TOKEN không hợp lệ hoặc chưa được đặt!")
 
-bot = telebot.TeleBot(TOKEN)  # Sử dụng token thực
+bot = telebot.TeleBot(TOKEN)  # Sử dụng token thựchực
 app = Flask(__name__)
             
 def webhook():
