@@ -178,7 +178,7 @@ def send_help(message):
 | /like : buff like
 | /getkey : lấy key 
 | /key : nhập key
-| /vist : 
+| /uptime : xem video gai xinh
 |—————————————————
                      Lệnh Admin
 |____________________________
@@ -279,6 +279,56 @@ def like_handler(message):
         bot.reply_to(message, "<blockquote>❌ Lỗi kết nối đến server. Vui lòng thử lại sau.</blockquote>", parse_mode="HTML")
     except Exception as e:
         bot.reply_to(message, "<blockquote>❌ Đã xảy ra lỗi. Vui lòng thử lại sau.</blockquote>", parse_mode="HTML")
+
+# Lưu thời gian bắt đầu hoạt động của bot
+start_time = time.time()
+
+# Biến để tính toán FPS
+last_time = time.time()
+frame_count = 0
+fps = 0
+
+# Lệnh /uptime
+@bot.message_handler(commands=['uptime'])
+def uptime(message):
+    global last_time, frame_count, fps
+    
+    # Tính toán thời gian hoạt động
+    uptime_seconds = int(time.time() - start_time)
+    uptime_formatted = str(timedelta(seconds=uptime_seconds))
+    
+    # Cập nhật FPS mỗi khi lệnh được xử lý
+    current_time = time.time()
+    frame_count += 1
+    if current_time - last_time >= 1:  # Tính FPS mỗi giây
+        fps = frame_count
+        frame_count = 0
+        last_time = current_time
+    
+    # Gửi video từ API
+    video_url = "https://api.ffcommunity.site/randomvideo.php"
+    video_response = requests.get(video_url)
+    
+    # Phân tích dữ liệu JSON và lấy đường dẫn video (chú ý đến phần https)
+    try:
+        video_data = video_response.json()  # Phân tích JSON
+        video_link = video_data.get('url', '')  # Lấy đường dẫn video từ trường 'url'
+        
+        # Kiểm tra nếu có https
+        if video_link and video_link.startswith('https://'):
+            video_link = video_link.strip()  # Loại bỏ khoảng trắng thừa ở đầu và cuối
+        else:
+            video_link = 'Không thể lấy video'
+
+    except ValueError:
+        video_link = 'Không thể lấy video'
+
+    # Tạo và gửi tin nhắn
+    bot.send_message(message.chat.id, 
+                     f"📊 ⏳ Bot đã hoạt động: {uptime_formatted}\n"
+                     f"🎮 FPS trung bình: {fps} FPS\n"
+                     "Không thể lấy thông tin cấu hình.\n"
+                     f"🎥 Video giải trí cho ae FA vibu đây! 😏\n{video_link}")
 
 #gg
 API_URL = "https://dichvukey.site/apivl/gg.php?gg="
