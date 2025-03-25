@@ -32,7 +32,7 @@ TOKEN = os.getenv("BOT_TOKEN", "").strip()  # Xoá khoảng trắng thừa
 if not TOKEN or ":" not in TOKEN:
     raise ValueError("⚠️ BOT_TOKEN không hợp lệ hoặc chưa được đặt!")
 
-bot = telebot.TeleBot(TOKEN)  # Sử dụng token thựchực
+bot = telebot.TeleBot("7920158658:AAGyY9jA2B5Z3_n3vZzzQBDYaJoAddPqZ7s")  # Sử dụng token thựchực
 app = Flask(__name__)
 @app.route("/" + TOKEN, methods=['POST'])            
 def webhook():
