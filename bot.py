@@ -20,6 +20,7 @@ from telebot import types
 from time import strftime
 import queue
 import pytz
+from datetime import timedelta
 admin_diggory = "ad_an_danhso5" 
 name_bot = "HaoEsports"
 zalo = "0585019743"
