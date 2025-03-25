@@ -34,7 +34,7 @@ if not TOKEN or ":" not in TOKEN:
 
 bot = telebot.TeleBot(TOKEN)  # Sử dụng token thựchực
 app = Flask(__name__)
-            
+@app.route("/" + TOKEN, methods=['POST'])            
 def webhook():
     json_update = request.get_data().decode('utf-8')
     update = telebot.types.Update.de_json(json_update)
